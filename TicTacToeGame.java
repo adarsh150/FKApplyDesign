@@ -13,6 +13,36 @@ interface Board{
 	public boolean isBoardFull();
 }
 
+
+class Player1 implements Board{
+	public boolean isBoardFull()
+	{
+		for(int i=0;i<3;i++)
+		{
+			for(int j=0;j<3;j++)
+			{
+				if(board[i][j] == '-')
+					return false;
+			}
+		}
+		return true;
+	}
+}
+
+class Player2 implements Board{
+	public boolean isBoardFull()
+	{
+		for(int i=0;i<3;i++)
+		{
+			for(int j=0;j<3;j++)
+			{
+				if(board[i][j] == '-')
+					return false;
+			}
+		}
+		return true;
+	}
+}
 public class TicTacToeGame{
 	public static void main(String[] args)
 	{
