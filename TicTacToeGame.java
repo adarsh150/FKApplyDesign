@@ -16,6 +16,34 @@ interface Board{
 
 class Player1 implements Board{
 
+	public boolean isWinnerDiagonalWise()
+	{
+
+		char ch = board[0][0];
+		int i=0;
+		for(i=1;i<3;i++)
+		{
+			if(ch=='-' || ch!=board[i][i])
+			break;
+		}
+		if(i == 4)
+			return true;
+		ch = board[0][2];
+		i = 1;
+		int j = 1;
+		for(;i<3 && j>=0;)
+		{
+			if(ch=='-' || ch!=board[i][j])
+			break;
+			i++;
+			j--;
+		}
+		if(i == 3 && j==-1)
+			return true;
+
+		return false;
+	}
+
 	public int[] EmptyPosition()
 	{
 		int[] a = new int[2];
@@ -62,6 +90,33 @@ class Player1 implements Board{
 
 class Player2 implements Board{
 
+	public boolean isWinnerDiagonalWise()
+	{
+		char ch = board[0][0];
+		int i=0;
+		for(i=1;i<3;i++)
+		{
+			if(ch=='-' || ch!=board[i][i])
+			break;
+		}
+		if(i == 4)
+			return true;
+
+		ch = board[0][2];
+		i = 1;
+		int j = 1;
+		for(;i<3 && j>=0;)
+		{
+			if(ch=='-' || ch!=board[i][j])
+			break;
+			i++;
+			j--;
+		}
+		if(i == 3 && j==-1)
+			return true;
+
+		return false;
+	}
 	public int[] EmptyPosition()
 	{
 		int[] a = new int[2];
@@ -79,7 +134,7 @@ class Player2 implements Board{
 		}	
 		return a;
 	}
-	
+
 	public void printBoard()
 	{
 		for(int i=0;i<3;i++)
