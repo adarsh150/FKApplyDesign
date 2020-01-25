@@ -253,6 +253,79 @@ class Player2 implements Board{
 public class TicTacToeGame{
 	public static void main(String[] args)
 	{
-		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("For Game Between Two Players type 0 and for Game Between Player and Machine type 1");
+		int choice = sc.nextInt();
+		Player1 p1 = new Player1();
+		Player2 p2 = new Player2();
+		int flag = 0;    // flag%2 == 0 p1 else p2;
+		while(true)
+		{
+			if(flag%2 == 0)
+			{
+				if(!p1.isBoardFull())
+				{
+					System.out.println("Player1 Enter the coordinate = ");
+					int row_indx = sc.nextInt();
+					int col_indx = sc.nextInt();
+					p1.fillBoard(row_indx,col_indx);
+					p1.printBoard();
+					if(p1.isWinnerRowWise() || p1.isWinnerColoumnsWise() || p1.isWinnerDiagonalWise())
+					{
+						System.out.println("Player1 is Winner");
+						break;
+					}
+				}
+				else
+				{
+					if(p1.isWinnerRowWise() || p1.isWinnerColoumnsWise() || p1.isWinnerDiagonalWise())
+					{
+						System.out.println("Player1 is Winner\n");
+					}
+					else
+					{
+						System.out.println("No-one wins\n");
+					}
+					break;
+				}
+			}
+			else
+			{
+				if(!p2.isBoardFull())
+				{
+					if(choice == 0)
+					{
+						System.out.println("Player2 Enter the coordinates = ");
+						int row_indx = sc.nextInt();
+						int col_indx = sc.nextInt();
+						p2.fillBoard(row_indx,col_indx);
+					}
+					else
+					{
+						int[] a = p2.EmptyPosition();
+						p2.fillBoard(a[0],a[1]);
+					}
+					p2.printBoard();
+					if(p2.isWinnerRowWise() || p2.isWinnerColoumnsWise() || p2.isWinnerDiagonalWise())
+					{
+						System.out.println("Player2 is Winner");
+						break;
+					}
+				}
+				else
+				{
+					if(p2.isWinnerRowWise() || p2.isWinnerColoumnsWise() || p2.isWinnerDiagonalWise())
+					{
+						System.out.println("Player2 is Winner\n");
+					}
+					else
+					{
+						System.out.println("No-one wins\n");
+					}
+					break;
+				}
+			}
+			flag++;
+		}
 	}
 }	
