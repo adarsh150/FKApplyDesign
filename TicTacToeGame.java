@@ -16,6 +16,24 @@ interface Board{
 
 class Player1 implements Board{
 
+	public int[] EmptyPosition()
+	{
+		int[] a = new int[2];
+		for(int i=0; i<3; i++)
+		{
+			for(int j=0; j<3; j++)
+			{
+				if(board[i][j] == '-')
+				{
+					a[0] = i;
+					a[1] = j;
+					return a;
+				}
+			}
+		}
+		return a;
+	}
+
 	public void printBoard()
 	{
 		for(int i=0;i<3;i++)
@@ -27,7 +45,7 @@ class Player1 implements Board{
 			System.out.println();
 		}
 	}
-	
+
 	public boolean isBoardFull()
 	{
 		for(int i=0;i<3;i++)
@@ -44,7 +62,24 @@ class Player1 implements Board{
 
 class Player2 implements Board{
 
-
+	public int[] EmptyPosition()
+	{
+		int[] a = new int[2];
+		for(int i=0; i<3; i++)
+		{
+			for(int j=0; j<3; j++)
+			{
+				if(board[i][j] == '-')
+				{
+					a[0] = i;
+					a[1] = j;
+					return a;
+				}
+			}
+		}	
+		return a;
+	}
+	
 	public void printBoard()
 	{
 		for(int i=0;i<3;i++)
