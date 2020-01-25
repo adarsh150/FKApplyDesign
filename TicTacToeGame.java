@@ -16,6 +16,11 @@ interface Board{
 
 class Player1 implements Board{
 
+	public void fillBoard(int i,int j)
+	{
+		board[i][j] = 'X';
+	}
+
 	public boolean isWinnerRowWise()
 	{
 		for(int i=0;i<3;i++)
@@ -130,6 +135,11 @@ class Player1 implements Board{
 
 class Player2 implements Board{
 
+	public void fillBoard(int i,int j)
+	{
+		board[i][j] = 'O';
+	}
+
 	public boolean isWinnerRowWise()
 	{
 		for(int i=0;i<3;i++)
@@ -149,7 +159,7 @@ class Player2 implements Board{
 
 		return false;
 	}
-	
+
 	public boolean isWinnerColoumnsWise()
 	{
 		for(int j=0;j<3;j++)
