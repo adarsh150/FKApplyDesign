@@ -16,6 +16,27 @@ interface Board{
 
 class Player1 implements Board{
 
+	public boolean isWinnerColoumnsWise()
+	{
+		for(int j=0;j<3;j++)
+		{
+			char ch = board[0][j];
+			int i=0;
+			for(i=1;i<3;i++)
+			{
+				if(ch=='-' || ch != board[i][j])
+				{
+					break;
+				}
+			}
+			if(i == 3)
+				return true;
+		}
+		return false;
+	}
+
+
+
 	public boolean isWinnerDiagonalWise()
 	{
 
@@ -90,6 +111,25 @@ class Player1 implements Board{
 
 class Player2 implements Board{
 
+	public boolean isWinnerColoumnsWise()
+	{
+		for(int j=0;j<3;j++)
+		{
+			char ch = board[0][j];
+			int i=0;
+			for(i=1;i<3;i++)
+			{
+				if(ch=='-' || ch != board[i][j])
+				{
+					break;
+				}
+			}
+			if(i == 3)
+				return true;
+		}
+		return false;
+	}
+	
 	public boolean isWinnerDiagonalWise()
 	{
 		char ch = board[0][0];
