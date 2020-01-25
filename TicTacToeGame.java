@@ -71,7 +71,7 @@ class Player1 implements Board{
 			if(ch=='-' || ch!=board[i][i])
 			break;
 		}
-		if(i == 4)
+		if(i == 3)
 			return true;
 		ch = board[0][2];
 		i = 1;
@@ -188,7 +188,7 @@ class Player2 implements Board{
 			if(ch=='-' || ch!=board[i][i])
 			break;
 		}
-		if(i == 4)
+		if(i == 3)
 			return true;
 
 		ch = board[0][2];
