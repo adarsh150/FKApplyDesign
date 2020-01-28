@@ -3,7 +3,9 @@ package learnJava;
 import java.util.*;
 
 interface Board{
-	public char[][] board = { {'-','-','-'},{'-','-','-'}, {'-','-','-'}};
+	public char[][] board = { {'-','-','-','-'},{'-','-','-','-'}, {'-','-','-','-'},{'-','-','-','-'}};
+	int N = 4;
+	Scanner sc = new Scanner(System.in);
 	public void fillBoard(int i,int j);
 	public boolean isWinnerRowWise();
 	public boolean isWinnerColoumnsWise();
@@ -11,6 +13,7 @@ interface Board{
 	public int[] EmptyPosition();
 	public void printBoard();
 	public boolean isBoardFull();
+	public int[] makeMove();
 }
 
 
@@ -21,20 +24,50 @@ class Player1 implements Board{
 		board[i][j] = 'X';
 	}
 
+	public int[] makeMove()
+	{
+		int[] coordinates = new int[2];
+		int undoMoveOrNot,row_indx,col_indx;
+
+		System.out.println("Player1 Enter the coordinate = ");
+		row_indx = sc.nextInt();
+		col_indx = sc.nextInt();
+		while(true)
+		{
+			System.out.println("Do you want to undo your move 0/1 = ");
+			undoMoveOrNot = sc.nextInt();
+			if(undoMoveOrNot == 1)
+			{
+				System.out.println("Player1 Enter the coordinate again = ");
+				row_indx = sc.nextInt();
+				col_indx = sc.nextInt();
+			}
+			else
+			{
+				break;
+			}
+		}
+		coordinates[0] = row_indx;
+		coordinates[1] = col_indx;
+		return coordinates;
+	}
+
+
 	public boolean isWinnerRowWise()
 	{
-		for(int i=0;i<3;i++)
+
+		for(int i=0;i<N;i++)
 		{
 			char ch = board[i][0];
 			int j=0;
-			for(j=1;j<3;j++)
+			for(j=1;j<N;j++)
 			{
 				if(ch=='-' || ch != board[i][j])
 				{
 					break;
 				}
 			}
-			if(j == 3)
+			if(j == N)
 				return true;
 		}
 		return false;
@@ -42,18 +75,18 @@ class Player1 implements Board{
 
 	public boolean isWinnerColoumnsWise()
 	{
-		for(int j=0;j<3;j++)
+		for(int j=0;j<N;j++)
 		{
 			char ch = board[0][j];
 			int i=0;
-			for(i=1;i<3;i++)
+			for(i=1;i<N;i++)
 			{
 				if(ch=='-' || ch != board[i][j])
 				{
 					break;
 				}
 			}
-			if(i == 3)
+			if(i == N)
 				return true;
 		}
 		return false;
@@ -66,24 +99,24 @@ class Player1 implements Board{
 
 		char ch = board[0][0];
 		int i=0;
-		for(i=1;i<3;i++)
+		for(i=1;i<N;i++)
 		{
 			if(ch=='-' || ch!=board[i][i])
 			break;
 		}
-		if(i == 3)
+		if(i == N)
 			return true;
-		ch = board[0][2];
+		ch = board[0][N-1];
 		i = 1;
-		int j = 1;
-		for(;i<3 && j>=0;)
+		int j = N-2;
+		for(;i<N && j>=0;)
 		{
 			if(ch=='-' || ch!=board[i][j])
 			break;
 			i++;
 			j--;
 		}
-		if(i == 3 && j==-1)
+		if(i == N && j==-1)
 			return true;
 
 		return false;
@@ -92,9 +125,9 @@ class Player1 implements Board{
 	public int[] EmptyPosition()
 	{
 		int[] a = new int[2];
-		for(int i=0; i<3; i++)
+		for(int i=0; i<N; i++)
 		{
-			for(int j=0; j<3; j++)
+			for(int j=0; j<N; j++)
 			{
 				if(board[i][j] == '-')
 				{
@@ -109,9 +142,9 @@ class Player1 implements Board{
 
 	public void printBoard()
 	{
-		for(int i=0;i<3;i++)
+		for(int i=0;i<N;i++)
 		{
-			for(int j=0;j<3;j++)
+			for(int j=0;j<N;j++)
 			{
 				System.out.print(board[i][j] + " ");
 			}
@@ -121,9 +154,9 @@ class Player1 implements Board{
 
 	public boolean isBoardFull()
 	{
-		for(int i=0;i<3;i++)
+		for(int i=0;i<N;i++)
 		{
-			for(int j=0;j<3;j++)
+			for(int j=0;j<N;j++)
 			{
 				if(board[i][j] == '-')
 					return false;
@@ -140,20 +173,47 @@ class Player2 implements Board{
 		board[i][j] = 'O';
 	}
 
+	public int[] makeMove()
+	{
+		int[] coordinates = new int[2];
+		int undoMoveOrNot,row_indx,col_indx;
+
+		System.out.println("Player2 Enter the coordinate = ");
+		row_indx = sc.nextInt();
+		col_indx = sc.nextInt();
+		while(true)
+		{
+			System.out.println("Do you want to undo your move 0/1 = ");
+			undoMoveOrNot = sc.nextInt();
+			if(undoMoveOrNot == 1)
+			{
+				System.out.println("Player2 Enter the coordinate again = ");
+				row_indx = sc.nextInt();
+				col_indx = sc.nextInt();
+			}
+			else
+			{
+				break;
+			}
+		}
+		coordinates[0] = row_indx;
+		coordinates[1] = col_indx;
+		return coordinates;
+	}
 	public boolean isWinnerRowWise()
 	{
-		for(int i=0;i<3;i++)
+		for(int i=0;i<N;i++)
 		{
 			char ch = board[i][0];
 			int j=0;
-			for(j=1;j<3;j++)
+			for(j=1;j<N;j++)
 			{
 				if(ch=='-' || ch != board[i][j])
 				{
 					break;
 				}
 			}
-			if(j == 3)
+			if(j == N)
 				return true;
 		}
 
@@ -162,18 +222,18 @@ class Player2 implements Board{
 
 	public boolean isWinnerColoumnsWise()
 	{
-		for(int j=0;j<3;j++)
+		for(int j=0;j<N;j++)
 		{
 			char ch = board[0][j];
 			int i=0;
-			for(i=1;i<3;i++)
+			for(i=1;i<N;i++)
 			{
 				if(ch=='-' || ch != board[i][j])
 				{
 					break;
 				}
 			}
-			if(i == 3)
+			if(i == N)
 				return true;
 		}
 		return false;
@@ -183,25 +243,25 @@ class Player2 implements Board{
 	{
 		char ch = board[0][0];
 		int i=0;
-		for(i=1;i<3;i++)
+		for(i=1;i<N;i++)
 		{
 			if(ch=='-' || ch!=board[i][i])
 			break;
 		}
-		if(i == 3)
+		if(i == N)
 			return true;
 
-		ch = board[0][2];
+		ch = board[0][N-1];
 		i = 1;
-		int j = 1;
-		for(;i<3 && j>=0;)
+		int j = N-2;
+		for(;i<N && j>=0;)
 		{
 			if(ch=='-' || ch!=board[i][j])
 			break;
 			i++;
 			j--;
 		}
-		if(i == 3 && j==-1)
+		if(i == N && j==-1)
 			return true;
 
 		return false;
@@ -209,9 +269,9 @@ class Player2 implements Board{
 	public int[] EmptyPosition()
 	{
 		int[] a = new int[2];
-		for(int i=0; i<3; i++)
+		for(int i=0; i<N; i++)
 		{
-			for(int j=0; j<3; j++)
+			for(int j=0; j<N; j++)
 			{
 				if(board[i][j] == '-')
 				{
@@ -226,9 +286,9 @@ class Player2 implements Board{
 
 	public void printBoard()
 	{
-		for(int i=0;i<3;i++)
+		for(int i=0;i<N;i++)
 		{
-			for(int j=0;j<3;j++)
+			for(int j=0;j<N;j++)
 			{
 				System.out.print(board[i][j] + " ");
 			}
@@ -239,9 +299,9 @@ class Player2 implements Board{
 
 	public boolean isBoardFull()
 	{
-		for(int i=0;i<3;i++)
+		for(int i=0;i<N;i++)
 		{
-			for(int j=0;j<3;j++)
+			for(int j=0;j<N;j++)
 			{
 				if(board[i][j] == '-')
 					return false;
@@ -265,10 +325,9 @@ public class TicTacToeGame{
 			{
 				if(!p1.isBoardFull())
 				{
-					System.out.println("Player1 Enter the coordinate = ");
-					int row_indx = sc.nextInt();
-					int col_indx = sc.nextInt();
-					p1.fillBoard(row_indx,col_indx);
+					int[] coordinates = new int[2];
+					coordinates =  p1.makeMove();
+					p1.fillBoard(coordinates[0],coordinates[1]);
 					p1.printBoard();
 					if(p1.isWinnerRowWise() || p1.isWinnerColoumnsWise() || p1.isWinnerDiagonalWise())
 					{
@@ -295,10 +354,9 @@ public class TicTacToeGame{
 				{
 					if(choice == 0)
 					{
-						System.out.println("Player2 Enter the coordinates = ");
-						int row_indx = sc.nextInt();
-						int col_indx = sc.nextInt();
-						p2.fillBoard(row_indx,col_indx);
+						int[] coordinates = new int[2];
+						coordinates =  p2.makeMove();
+						p2.fillBoard(coordinates[0],coordinates[1]);
 					}
 					else
 					{
