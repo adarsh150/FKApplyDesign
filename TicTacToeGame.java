@@ -518,10 +518,6 @@ public class TicTacToeGame extends BoardState{
 			st = sc.nextLine();
 		}
 	}
-	public void printLeaderBoard()
-	{
-
-	}
 	public void initilaize()
 	{
 		Map <Integer, String > mp = new HashMap <Integer, String>();
