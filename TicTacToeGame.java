@@ -22,6 +22,10 @@ class BoardState{
 	{
 		return this.N;
 	}
+	public void setN(int N)
+	{
+		this.N = N;
+	}
 	public void setnoOfMoves(int noOfMoves)
 	{
 		this.noOfMoves = noOfMoves;
@@ -414,13 +418,13 @@ public class TicTacToeGame extends BoardState{
 		String st = "Y";
 		while(st.equals("Y"))
 		{
-			TicTacToeGame tp = new TicTacToeGame();
-			tp.initilaize();
 			Scanner sc = new Scanner(System.in);
 			System.out.println("For Game Between Two Players type 0 and for Game Between Player and Machine type 1");
 			int choice = sc.nextInt();
 			Player1 p1 = new Player1();
 			Player2 p2 = new Player2();
+			TicTacToeGame tp = new TicTacToeGame();
+			tp.initilaize();
 			int flag = 0;    // flag%2 == 0 p1 else p2;
 			while(true)
 			{
@@ -520,6 +524,10 @@ public class TicTacToeGame extends BoardState{
 	}
 	public void initilaize()
 	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the size(N) of the board = ");
+		int N = sc.nextInt();
+		super.setN(N);
 		Map <Integer, String > mp = new HashMap <Integer, String>();
 		super.setnoOfMoves(0);
 		super.setMap(mp);
@@ -536,7 +544,7 @@ public class TicTacToeGame extends BoardState{
 	public void printBoardState()
 	{
 		System.out.println("Print the board states after every move");
-		Map <Integer, String > mp = super.getMap();
+		Map <Integer, String> mp = super.getMap();
 		for(Map.Entry m:mp.entrySet())
 		{  
 			System.out.print("\n"+m.getKey() + " --->");
