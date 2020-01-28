@@ -4,7 +4,9 @@ import java.util.*;
 import java.lang.*;
 class BoardState{
 	static char[][] board = { {'-','-','-','-'},{'-','-','-','-'}, {'-','-','-','-'},{'-','-','-','-'}};
-	int N = 4;
+	static int[] leaderBoard = new int[100];
+	static int games = 0;
+	int N = 3;
 	static int noOfMoves = 0;
 	static Map <Integer, String > mp = new HashMap <Integer, String>();
 
@@ -405,85 +407,135 @@ class Player2 extends BoardState implements Board{
 	}
 
 }
+
 public class TicTacToeGame extends BoardState{
 	public static void main(String[] args)
 	{
-		TicTacToeGame tp = new TicTacToeGame();
-		Scanner sc = new Scanner(System.in);
-		System.out.println("For Game Between Two Players type 0 and for Game Between Player and Machine type 1");
-		int choice = sc.nextInt();
-		Player1 p1 = new Player1();
-		Player2 p2 = new Player2();
-		int flag = 0;    // flag%2 == 0 p1 else p2;
-		while(true)
+		String st = "Y";
+		while(st.equals("Y"))
 		{
-			if(flag%2 == 0)
+			TicTacToeGame tp = new TicTacToeGame();
+			tp.initilaize();
+			Scanner sc = new Scanner(System.in);
+			System.out.println("For Game Between Two Players type 0 and for Game Between Player and Machine type 1");
+			int choice = sc.nextInt();
+			Player1 p1 = new Player1();
+			Player2 p2 = new Player2();
+			int flag = 0;    // flag%2 == 0 p1 else p2;
+			while(true)
 			{
-				if(!p1.isBoardFull())
+				if(flag%2 == 0)
 				{
-					int[] coordinates = new int[2];
-					coordinates =  p1.makeMove();
-					p1.fillBoard(coordinates[0],coordinates[1]);
-					p1.printBoard();
-					p1.storeBoardState();
-					if(p1.isWinnerRowWise() || p1.isWinnerColoumnsWise() || p1.isWinnerDiagonalWise())
-					{
-						System.out.println("Player1 is Winner");
-						break;
-					}
-				}
-				else
-				{
-					if(p1.isWinnerRowWise() || p1.isWinnerColoumnsWise() || p1.isWinnerDiagonalWise())
-					{
-						System.out.println("Player1 is Winner\n");
-					}
-					else
-					{
-						System.out.println("No-one wins\n");
-					}
-					break;
-				}
-			}
-			else
-			{
-				if(!p2.isBoardFull())
-				{
-					if(choice == 0)
+					if(!p1.isBoardFull())
 					{
 						int[] coordinates = new int[2];
-						coordinates =  p2.makeMove();
-						p2.fillBoard(coordinates[0],coordinates[1]);
+						coordinates =  p1.makeMove();
+						p1.fillBoard(coordinates[0],coordinates[1]);
+						p1.printBoard();
+						p1.storeBoardState();
+						if(p1.isWinnerRowWise() || p1.isWinnerColoumnsWise() || p1.isWinnerDiagonalWise())
+						{
+							System.out.println("Player1 is Winner");
+							leaderBoard[games++] = 1;
+							break;
+						}
 					}
 					else
 					{
-						int[] a = p2.EmptyPosition();
-						p2.fillBoard(a[0],a[1]);
-					}
-					p2.printBoard();
-					p2.storeBoardState();
-					if(p2.isWinnerRowWise() || p2.isWinnerColoumnsWise() || p2.isWinnerDiagonalWise())
-					{
-						System.out.println("Player2 is Winner");
+						if(p1.isWinnerRowWise() || p1.isWinnerColoumnsWise() || p1.isWinnerDiagonalWise())
+						{
+							System.out.println("Player1 is Winner\n");
+							leaderBoard[games++] = 1;
+						}
+						else
+						{
+							System.out.println("No-one wins\n");
+							leaderBoard[games++] = 0;
+						}
 						break;
 					}
 				}
 				else
 				{
-					if(p2.isWinnerRowWise() || p2.isWinnerColoumnsWise() || p2.isWinnerDiagonalWise())
+					if(!p2.isBoardFull())
 					{
-						System.out.println("Player2 is Winner\n");
+						if(choice == 0)
+						{
+							int[] coordinates = new int[2];
+							coordinates =  p2.makeMove();
+							p2.fillBoard(coordinates[0],coordinates[1]);
+						}
+						else
+						{
+							int[] a = p2.EmptyPosition();
+							p2.fillBoard(a[0],a[1]);
+						}
+						p2.printBoard();
+						p2.storeBoardState();
+						if(p2.isWinnerRowWise() || p2.isWinnerColoumnsWise() || p2.isWinnerDiagonalWise())
+						{
+							System.out.println("Player2 is Winner");
+							leaderBoard[games++] = 2;
+							break;
+						}
 					}
 					else
 					{
-						System.out.println("No-one wins\n");
+						if(p2.isWinnerRowWise() || p2.isWinnerColoumnsWise() || p2.isWinnerDiagonalWise())
+						{
+							System.out.println("Player2 is Winner\n");
+							leaderBoard[games++] = 2;
+						}
+						else
+						{
+							System.out.println("No-one wins\n");
+							leaderBoard[games++] = 0;
+						}
+						break;
 					}
-					break;
+				}
+				flag++;
+			}  
+			tp.printBoardState();
+			System.out.println("Do you want to see leaderBoard Y/N");
+			String win = sc.nextLine();
+			win = sc.nextLine();
+			if(win.equals("Y"))
+			{
+				for(int i=0;i<games;i++)
+				{
+					int j = i+1;
+					if(leaderBoard[i] == 0)
+						System.out.println("Winner of " + j + " game is No-one ");
+					else if(leaderBoard[i] == 1)
+						System.out.println("Winner of " + j + " game is Player1 ");
+					else
+						System.out.println("Winner of " + j + " game is Player2 ");
+
 				}
 			}
-			flag++;
-		}  
-		tp.printBoardState();
+			System.out.println("Do you want to play one more game Y/N ");
+			st = sc.nextLine();
+		}
+	}
+	public void printLeaderBoard()
+	{
+
+	}
+	public void initilaize()
+	{
+		Map <Integer, String > mp = new HashMap <Integer, String>();
+		super.setnoOfMoves(0);
+		super.setMap(mp);
+		char[][] board = new char[super.getN()][super.getN()];
+		for(int i=0;i<super.getN();i++)
+		{
+			for(int j=0;j<super.getN();j++)
+			{
+				board[i][j] = '-';
+			}
+		}
+		super.setBoard(board);
 	}
 	public void printBoardState()
 	{
@@ -504,5 +556,6 @@ public class TicTacToeGame extends BoardState{
 			}
 		}
 		System.out.println();
-	}  
+	}
+	  
 }	
